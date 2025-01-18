@@ -20,6 +20,11 @@ router.get('/', authMiddleware, async (req, res) => {
 // Add a new task for a specific user
 router.post('/', authMiddleware, async (req, res) => {
   const { title, startTime, endTime, priority } = req.body;
+  // console.log(req.user)
+
+  if(!title || !startTime || !endTime || !priority){
+    return res.status(400).json({ msg: 'Missing required fields' });
+  }
 
   try {
     const newTask = new Task({
@@ -27,7 +32,7 @@ router.post('/', authMiddleware, async (req, res) => {
       startTime,
       endTime,
       priority,
-      userId: req.user.id,
+      userId: req.user._id,
     });
 
     const task = await newTask.save();
@@ -42,19 +47,21 @@ router.post('/', authMiddleware, async (req, res) => {
 router.patch('/:id/status', authMiddleware, async (req, res) => {
   const { status } = req.body;
 
-  if (!['pending', 'finished'].includes(status)) {
+  console.log(status)
+
+  if (status !== 'pending' && status !== 'finished') {
     return res.status(400).json({ msg: 'Invalid status value' });
   }
 
   try {
-    const task = await Task.findOne({ _id: req.params.id, userId: req.user.id });
+    const task = await Task.findOne({ _id: req.params.id, userId: req.user._id });
 
     if (!task) {
       return res.status(404).json({ msg: 'Task not found' });
     }
 
     if (status === 'finished') {
-      task.endTime = new Date(); // Update endTime to actual completion time
+      task.endTime = new Date(); 
     }
 
     task.status = status;
