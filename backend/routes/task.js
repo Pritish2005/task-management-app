@@ -47,7 +47,7 @@ router.post('/', authMiddleware, async (req, res) => {
 router.patch('/:id/status', authMiddleware, async (req, res) => {
   const { status } = req.body;
 
-  console.log(status)
+  // console.log(status)
 
   if (status !== 'pending' && status !== 'finished') {
     return res.status(400).json({ msg: 'Invalid status value' });
