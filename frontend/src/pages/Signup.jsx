@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  const [name, setName] = useState(""); // Added state for name
+  const [name, setName] = useState(""); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false); 
 
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
     setError("");
-    setLoading(true); // Start loading
+    setLoading(true); 
 
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
@@ -27,12 +27,12 @@ const SignUp = () => {
       const response = await fetch("http://localhost:3000/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }), // Include name in the request body
+        body: JSON.stringify({ name, email, password }), 
       });
 
       if (response.ok) {
         setSuccess(true);
-        setTimeout(() => navigate("/login"), 2000); // Redirect to login after 2 seconds
+        setTimeout(() => navigate("/login"), 2000); 
       } else {
         const data = await response.json();
         setError(data.message || "Sign-up failed. Please try again.");
@@ -40,7 +40,7 @@ const SignUp = () => {
     } catch (error) {
       setError("Something went wrong. Please try again later.");
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false); 
     }
   };
 
