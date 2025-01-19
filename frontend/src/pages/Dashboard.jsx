@@ -16,7 +16,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/task", {
+        const response = await fetch("https://task-management-app-backend-h0xd.onrender.com/api/task", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

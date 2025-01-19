@@ -27,7 +27,7 @@ const TaskList = () => {
     const fetchTasks = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:3000/api/task", {
+        const response = await fetch("https://task-management-app-backend-h0xd.onrender.com/api/task", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -58,7 +58,7 @@ const TaskList = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/api/task" +
+        "https://task-management-app-backend-h0xd.onrender.com/api/task" +
           (taskForm.id ? `/${taskForm.id}` : ""),
         {
           method: taskForm.id ? "PUT" : "POST",
@@ -102,7 +102,7 @@ const TaskList = () => {
   const handleUpdateStatus = async (taskId, status) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/task/${taskId}/status`,
+        `https://task-management-app-backend-h0xd.onrender.com/api/task/${taskId}/status`,
         {
           method: "PATCH",
           headers: {
@@ -132,7 +132,7 @@ const TaskList = () => {
   const handleDeleteTask = async (taskId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/task/${taskId}`,
+        `https://task-management-app-backend-h0xd.onrender.com/api/task/${taskId}`,
         {
           method: "DELETE",
           headers: {
